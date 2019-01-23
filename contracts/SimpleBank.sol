@@ -33,7 +33,7 @@ contract SimpleBank {
     //
 
     /* Use the appropriate global variable to get the sender of the transaction */
-    constructor() {
+    constructor() public {
         /* Set the owner to the creator of this contract */
         owner = msg.sender;
     }
@@ -50,8 +50,9 @@ contract SimpleBank {
     /// @notice Enroll a customer with the bank
     /// @return The users enrolled status
     // Emit the appropriate event
-    function enroll() public returns (bool){
+    function enroll() public returns (bool) {
         enrolled[msg.sender] = true;
+        return enrolled[msg.sender];
         emit LogEnrolled(msg.sender);
     }
 
@@ -64,6 +65,7 @@ contract SimpleBank {
         /* Add the amount to the user's balance, call the event associated with a deposit,
           then return the balance of the user */
         balances[msg.sender] += msg.value;
+        return balances[msg.sender];
         emit LogDepositMade(msg.sender, msg.value);
     }
 
@@ -80,6 +82,7 @@ contract SimpleBank {
         require(balances[msg.sender] >= withdrawAmount);
         balances[msg.sender] -= withdrawAmount;
         msg.sender.transfer(balances[msg.sender]);
+        return balances[msg.sender];
         emit LogWithdrawal(msg.sender, withdrawAmount, balances[msg.sender]);
     }
 
