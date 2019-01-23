@@ -64,7 +64,7 @@ contract SimpleBank {
     function deposit() public payable returns (uint) {
         /* Add the amount to the user's balance, call the event associated with a deposit,
           then return the balance of the user */
-        uint storage balance = balances[msg.sender];
+        uint balance = balances[msg.sender];
         balance += msg.value;
         return balance;
         emit LogDepositMade(msg.sender, msg.value);
