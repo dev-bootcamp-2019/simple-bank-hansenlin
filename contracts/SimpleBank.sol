@@ -82,8 +82,8 @@ contract SimpleBank {
         require(balances[msg.sender] >= withdrawAmount);
         balances[msg.sender] -= withdrawAmount;
         msg.sender.transfer(balances[msg.sender]);
-        return balances[msg.sender];
         emit LogWithdrawal(msg.sender, withdrawAmount, balances[msg.sender]);
+        return balances[msg.sender];
     }
 
     // Fallback function - Called if other functions don't match call or
@@ -91,7 +91,7 @@ contract SimpleBank {
     // Typically, called when invalid data is sent
     // Added so ether sent to this contract is reverted if the contract fails
     // otherwise, the sender's money is transferred to contract
-    function() {
+    function() public {
         revert();
     }
 }
